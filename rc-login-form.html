@@ -1,0 +1,181 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-form/iron-form.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+
+<!--
+`rc-login-form`是一个通用的用户登录表单。
+
+@demo demo/index.html
+-->
+
+<dom-module id="rc-login-form">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      #rememberPW {
+        margin-top: 24px;
+        align-self: flex-start;
+        opacity: 0.78;
+      }
+
+      #login {
+        width: 182px;
+        margin-top: 24px;
+      }
+
+      paper-button.login {
+        margin-top: 20px;
+        background-color: var(--app-bg-color);
+        color: #fff;
+      }
+
+      paper-input {
+        color: orange;
+      }
+
+      paper-spinner {
+        width: 18px;
+        height: 18px;
+        --paper-spinner-layer-1-color: white;
+        --paper-spinner-layer-2-color: white;
+        --paper-spinner-layer-3-color: white;
+        --paper-spinner-layer-4-color: white;
+      }
+
+    </style>
+
+    <form is="iron-form" id="loginForm">
+
+      <paper-input
+        name="username"
+        label="用户名"
+        error-message="请输入合法的用户名"
+        value="[[placeholderData.username]]"
+        required
+        pattern=".+">
+      </paper-input>
+
+      <paper-input
+        name="password"
+        label="密码"
+        type="password"
+        error-message="请输入合法的密码"
+        value="[[placeholderData.password]]"
+        on-keydown="_checkPress"
+        required>
+      </paper-input>
+
+      <paper-checkbox
+        name="rememberPW"
+        checked="[[placeholderData.isRememberPW]]">
+        记住密码
+      </paper-checkbox>
+
+    </form>
+
+    <paper-button id="login" raised on-tap="submit">
+      <div hidden$="[[loading]]">登录</div>
+      <paper-spinner hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
+    </paper-button>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'rc-login-form',
+
+      properties: {
+        
+        /**
+         * 占位数据，结构：
+         *
+         * ```
+         * {username: 'Admin', password: 'hihihi', rememberPassword: true}
+         * ```
+         *
+         * @type Object
+         */
+        placeholderData: {
+          type: Object
+        },
+        
+        /**
+         * 用户点击登录，且输入合法时得到的提交数据，结构：
+         *
+         * ```
+         * {
+         *   username: 'Admin',
+         *   password: 'hihihi',
+         *   rememberPassword: true
+         * }
+         * ```
+         *
+         * @type Object
+         */
+        lastSubmitData: {
+          type: Object,
+          notify: true
+        },
+        
+        /**
+         * 是否正在登录。
+         *
+         * @type Boolean
+         */
+        loading: {
+          type: Boolean,
+          value: false
+        },
+       
+        /**
+         * 是否开启记住密码。
+         *
+         * @type Boolean
+         */
+        enableRememberPassword: {
+          type: Boolean,
+          value: false
+        }
+        
+      },
+       
+      /**
+       * 提交。
+       *
+       */
+      submit: function(){
+        // invalidated
+        
+        // validated
+      },
+      
+      /**
+       * 合法提交时触发，非冒泡。
+       *
+       * @event validated-submit
+       */
+       
+      /**
+       * 非法提交时触发，非冒泡。
+       *
+       * @event invalidated-submit
+       */
+
+      // 检查输入，触发登录
+      _checkPress: function(e) {
+        // Enter的情况触发登录
+        if (e.keyCode === 13) {
+          this.submit();
+        }
+      }
+    });
+  </script>
+</dom-module>

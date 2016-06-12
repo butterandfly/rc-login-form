@@ -1,0 +1,48 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>rc-login-form test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../rc-login-form.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <rc-login-form></rc-login-form>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('rc-login-form', function() {
+        let loginForm;
+        
+        setup(() => {
+          loginForm = fixture('basic');
+        });
+        
+        test('placeholderData存在时填入对应内容', () => {
+          loginForm.placeholderData = {username: 'Admin'};
+          // TODO
+        });
+        
+        test('合法的登录后触发`validated-submit`, 并将数据写入到lastSubmitData里', () => {
+          
+          // TODO
+        });
+        
+
+        test('非法的登录后触发`validated-submit`, 并将数据写入到lastSubmitData里', () => {
+          
+          // TODO
+        });
+        
+      });
+    </script>
+  </body>
+</html>
