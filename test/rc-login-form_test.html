@@ -21,27 +21,33 @@
     <script>
       suite('rc-login-form', function() {
         let loginForm;
-        
+
         setup(() => {
           loginForm = fixture('basic');
         });
-        
+
         test('placeholderData存在时填入对应内容', () => {
-          loginForm.placeholderData = {username: 'Admin'};
+          loginForm.placeholderData = {username: 'Admin', password: 'hihihi', isRememberPW: true};
           // TODO
+          var username     = loginForm.querySelector('paper-input[name=username]').value.trim();
+          var password     = loginForm.querySelector('paper-input[name=password]').value.trim();
+          var isRememberPW = loginForm.querySelector('paper-checkbox[name=rememberPW]').value.trim();
+          assert.equal(username, 'Admin');
+          assert.equal(password, 'hihihi');
+          assert.equal(isRememberPW, 'on');
         });
-        
+
         test('合法的登录后触发`validated-submit`, 并将数据写入到lastSubmitData里', () => {
-          
+
           // TODO
         });
-        
+
 
         test('非法的登录后触发`validated-submit`, 并将数据写入到lastSubmitData里', () => {
-          
+
           // TODO
         });
-        
+
       });
     </script>
   </body>

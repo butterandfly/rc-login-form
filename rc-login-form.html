@@ -2,6 +2,7 @@
 <link rel="import" href="../iron-form/iron-form.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-button/paper-button.html">
 
 <!--
 `rc-login-form`是一个通用的用户登录表单。
@@ -30,15 +31,20 @@
         margin-top: 24px;
       }
 
-      paper-button.login {
+      paper-button#login {
         margin-top: 20px;
-        background-color: var(--app-bg-color);
-        color: #fff;
+        /*background-color: orange;*/
+        /*color: #fff;*/
       }
 
-      paper-input {
-        color: orange;
+      /*paper-input {
+        --paper-input-container-color: orange;
+        --paper-input-container-focus-color: orange;
       }
+
+      paper-checkbox {
+        --paper-checkbox-checked-color: orange;
+      }*/
 
       paper-spinner {
         width: 18px;
@@ -93,20 +99,24 @@
       is: 'rc-login-form',
 
       properties: {
-        
+
         /**
          * 占位数据，结构：
          *
          * ```
-         * {username: 'Admin', password: 'hihihi', rememberPassword: true}
-         * ```
+         * {
+         *  username: 'Admin',
+         *  password: 'hihihi',
+         *  isRememberPW: true
+         * }
+         *```
          *
          * @type Object
          */
         placeholderData: {
           type: Object
         },
-        
+
         /**
          * 用户点击登录，且输入合法时得到的提交数据，结构：
          *
@@ -114,7 +124,7 @@
          * {
          *   username: 'Admin',
          *   password: 'hihihi',
-         *   rememberPassword: true
+         *   isRememberPW: true
          * }
          * ```
          *
@@ -124,7 +134,7 @@
           type: Object,
           notify: true
         },
-        
+
         /**
          * 是否正在登录。
          *
@@ -134,7 +144,7 @@
           type: Boolean,
           value: false
         },
-       
+
         /**
          * 是否开启记住密码。
          *
@@ -143,26 +153,36 @@
         enableRememberPassword: {
           type: Boolean,
           value: false
-        }
-        
+        },
       },
-       
+
       /**
        * 提交。
        *
        */
       submit: function(){
+        var temp = loginForm.serialize()
         // invalidated
-        
+        if (!temp.username || !temp.password) {
+          console.log("用户名或密码不能为空");
+        }
         // validated
+        else {
+          this.lastSubmitData = {
+            username:         temp.username,
+            password:         temp.password,
+            isRememberPW: temp.rememberPW == 'on'? true : false
+          }
+          console.log(this.lastSubmitData);
+        }
       },
-      
+
       /**
        * 合法提交时触发，非冒泡。
        *
        * @event validated-submit
        */
-       
+
       /**
        * 非法提交时触发，非冒泡。
        *
