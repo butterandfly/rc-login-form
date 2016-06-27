@@ -40,11 +40,12 @@
       /*paper-input {
         --paper-input-container-color: orange;
         --paper-input-container-focus-color: orange;
-      }
+      }*/
 
       paper-checkbox {
-        --paper-checkbox-checked-color: orange;
-      }*/
+        margin-top: 15px;
+        /*--paper-checkbox-checked-color: orange;*/
+      }
 
       paper-spinner {
         width: 18px;
@@ -161,19 +162,20 @@
        *
        */
       submit: function(){
-        var temp = loginForm.serialize()
         // invalidated
-        if (!temp.username || !temp.password) {
-          console.log("用户名或密码不能为空");
+        if (!loginForm.validate()) {
+          // console.log("输入有误");
+          this._invalidatedSubmit();
         }
         // validated
         else {
+          var formData = loginForm.serialize();
           this.lastSubmitData = {
-            username:         temp.username,
-            password:         temp.password,
-            isRememberPW: temp.rememberPW == 'on'? true : false
-          }
-          console.log(this.lastSubmitData);
+            username:     formData.username,
+            password:     formData.password,
+            isRememberPW: formData.rememberPW == 'on'? true : false
+          };
+          this._validatedSubmit(this.lastSubmitData);
         }
       },
 
@@ -182,12 +184,18 @@
        *
        * @event validated-submit
        */
+       _validatedSubmit: function(submitData){
+         console.log(submitData);
+       },
 
       /**
        * 非法提交时触发，非冒泡。
        *
        * @event invalidated-submit
        */
+       _invalidatedSubmit: function(){
+         console.log("输入有误");
+       },
 
       // 检查输入，触发登录
       _checkPress: function(e) {

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
 
     <link rel="import" href="../rc-login-form.html">
   </head>
@@ -24,6 +25,8 @@
 
         setup(() => {
           loginForm = fixture('basic');
+          submitBtn = loginForm.$.login;
+          form = loginForm.$.loginForm;
         });
 
         test('placeholderData存在时填入对应内容', () => {
@@ -40,12 +43,17 @@
         test('合法的登录后触发`validated-submit`, 并将数据写入到lastSubmitData里', () => {
 
           // TODO
-        });
+          loginForm.placeholderData = {username: 'Admin', password: 'hihihi', isRememberPW: true};
 
+          MockInteractions.tap(submitBtn);
+          expect(form.validate()).to.be.equal(true);
+        });
 
         test('非法的登录后触发`validated-submit`, 并将数据写入到lastSubmitData里', () => {
 
           // TODO
+          MockInteractions.tap(submitBtn);
+          expect(form.validate()).to.be.equal(false);
         });
 
       });
