@@ -2,6 +2,7 @@
 <link rel="import" href="../iron-form/iron-form.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-button/paper-button.html">
 
 <!--
 `rc-login-form`是一个通用的用户登录表单。
@@ -30,14 +31,20 @@
         margin-top: 24px;
       }
 
-      paper-button.login {
+      paper-button#login {
         margin-top: 20px;
-        background-color: var(--app-bg-color);
-        color: #fff;
+        /*background-color: orange;*/
+        /*color: #fff;*/
       }
 
-      paper-input {
-        color: orange;
+      /*paper-input {
+        --paper-input-container-color: orange;
+        --paper-input-container-focus-color: orange;
+      }*/
+
+      paper-checkbox {
+        margin-top: 15px;
+        /*--paper-checkbox-checked-color: orange;*/
       }
 
       paper-spinner {
@@ -93,20 +100,24 @@
       is: 'rc-login-form',
 
       properties: {
-        
+
         /**
          * 占位数据，结构：
          *
          * ```
-         * {username: 'Admin', password: 'hihihi', rememberPassword: true}
-         * ```
+         * {
+         *  username: 'Admin',
+         *  password: 'hihihi',
+         *  isRememberPW: true
+         * }
+         *```
          *
          * @type Object
          */
         placeholderData: {
           type: Object
         },
-        
+
         /**
          * 用户点击登录，且输入合法时得到的提交数据，结构：
          *
@@ -114,7 +125,7 @@
          * {
          *   username: 'Admin',
          *   password: 'hihihi',
-         *   rememberPassword: true
+         *   isRememberPW: true
          * }
          * ```
          *
@@ -124,7 +135,7 @@
           type: Object,
           notify: true
         },
-        
+
         /**
          * 是否正在登录。
          *
@@ -134,7 +145,7 @@
           type: Boolean,
           value: false
         },
-       
+
         /**
          * 是否开启记住密码。
          *
@@ -143,31 +154,48 @@
         enableRememberPassword: {
           type: Boolean,
           value: false
-        }
-        
+        },
       },
-       
+
       /**
        * 提交。
        *
        */
       submit: function(){
         // invalidated
-        
+        if (!loginForm.validate()) {
+          // console.log("输入有误");
+          this._invalidatedSubmit();
+        }
         // validated
+        else {
+          var formData = loginForm.serialize();
+          this.lastSubmitData = {
+            username:     formData.username,
+            password:     formData.password,
+            isRememberPW: formData.rememberPW == 'on'? true : false
+          };
+          this._validatedSubmit(this.lastSubmitData);
+        }
       },
-      
+
       /**
        * 合法提交时触发，非冒泡。
        *
        * @event validated-submit
        */
-       
+       _validatedSubmit: function(submitData){
+         console.log(submitData);
+       },
+
       /**
        * 非法提交时触发，非冒泡。
        *
        * @event invalidated-submit
        */
+       _invalidatedSubmit: function(){
+         console.log("输入有误");
+       },
 
       // 检查输入，触发登录
       _checkPress: function(e) {
