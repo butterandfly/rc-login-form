@@ -14,7 +14,7 @@
 
     <test-fixture id="basic">
       <template>
-        <rc-login-form></rc-login-form>
+        <rc-login-form placeholder-data='{"username": "Admin", "password": "hihihi", "isRememberPW": true}'></rc-login-form>
       </template>
     </test-fixture>
 
@@ -28,7 +28,6 @@
 
         test('placeholderData存在时填入对应内容', () => {
           loginForm.placeholderData = {username: 'Admin', password: 'hihihi', isRememberPW: true};
-          // TODO
           var username     = loginForm.querySelector('paper-input[name=username]').value.trim();
           var password     = loginForm.querySelector('paper-input[name=password]').value.trim();
           var isRememberPW = loginForm.querySelector('paper-checkbox[name=rememberPW]').value.trim();

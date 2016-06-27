@@ -1,0 +1,15 @@
+{
+  "suites": ["test"],
+  "skipUpdateCheck": true,
+  "webserver": {
+    "pathMappings": [{
+      "/components/rc-login-form/bower_components" : "bower_components"
+      }]
+  },
+  "plugins": {
+    "local": {
+      "skipSeleniumInstall": true,
+      "browsers": ["chrome"]
+    }
+  }
+}
