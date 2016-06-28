@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
 
     <link rel="import" href="../rc-login-form.html">
   </head>
@@ -14,7 +15,7 @@
 
     <test-fixture id="basic">
       <template>
-        <rc-login-form placeholder-data='{"username": "Admin", "password": "hihihi", "isRememberPW": true}'></rc-login-form>
+        <rc-login-form></rc-login-form>
       </template>
     </test-fixture>
 
@@ -26,27 +27,68 @@
           loginForm = fixture('basic');
         });
 
+        test('执行submit方法得到lastSubmitData', () => {
+          loginForm.querySelector('paper-input[name=username]').value = 'testUser';
+          loginForm.querySelector('paper-input[name=password]').value = 'testPassword';
+
+          loginForm.submit();
+
+          assert.equal(loginForm.lastSubmitData.username, 'testUser');
+          assert.equal(loginForm.lastSubmitData.password, 'testPassword');
+          assert.equal(loginForm.lastSubmitData.isRememberPassword, false);
+        });
+
+        test('勾选记住密码', () => {
+          loginForm.querySelector('paper-input[name=username]').value = 'testUser';
+          loginForm.querySelector('paper-input[name=password]').value = 'testPassword';
+
+          let checkbox = loginForm.querySelector('[name=rememberPassword]');
+          MockInteractions.tap(checkbox);
+
+          loginForm.submit();
+
+          assert.equal(loginForm.lastSubmitData.username, 'testUser');
+          assert.equal(loginForm.lastSubmitData.password, 'testPassword');
+          assert.equal(loginForm.lastSubmitData.isRememberPassword, true);
+        });
+
         test('placeholderData存在时填入对应内容', () => {
           loginForm.placeholderData = {username: 'Admin', password: 'hihihi', isRememberPW: true};
+
           var username     = loginForm.querySelector('paper-input[name=username]').value.trim();
           var password     = loginForm.querySelector('paper-input[name=password]').value.trim();
-          var isRememberPW = loginForm.querySelector('paper-checkbox[name=rememberPW]').value.trim();
+          var isRememberPW = loginForm.querySelector('paper-checkbox[name=rememberPassword]').value.trim();
+
           assert.equal(username, 'Admin');
           assert.equal(password, 'hihihi');
           assert.equal(isRememberPW, 'on');
         });
 
-        test('合法的登录后触发`validated-submit`, 并将数据写入到lastSubmitData里', () => {
+        test('合法的submit触发`rc-login-form-validated-submit`事件', (done) => {
+          loginForm.addEventListener('rc-login-form-validated-submit', () => {
+            done();
+          });
 
-          // TODO
+          loginForm.querySelector('paper-input[name=username]').value = 'testUser';
+          loginForm.querySelector('paper-input[name=password]').value = 'testPassword';
+          loginForm.submit();
         });
 
 
-        test('非法的登录后触发`validated-submit`, 并将数据写入到lastSubmitData里', () => {
-
-          // TODO
+        test('非法的登录后触发`rc-login-form-invalidated-submit`', (done) => {
+          loginForm.addEventListener('rc-login-form-invalidated-submit', () => {
+            done();
+          });
+          loginForm.submit();
         });
 
+        test('点击登录按钮触发submit方法', () => {
+          loginForm.addEventListener('rc-login-form-validated-submit', () => {
+            done();
+          });
+
+          MockInteractions.tap(loginForm.querySelector('#login'));
+        });
       });
     </script>
   </body>

@@ -80,8 +80,8 @@
       </paper-input>
 
       <paper-checkbox
-        name="rememberPW"
-        checked="[[placeholderData.isRememberPW]]">
+        name="rememberPassword"
+        checked="[[placeholderData.isRememberPassword]]">
         记住密码
       </paper-checkbox>
 
@@ -108,7 +108,7 @@
          * {
          *  username: 'Admin',
          *  password: 'hihihi',
-         *  isRememberPW: true
+         *  isRememberPassword: true
          * }
          *```
          *
@@ -125,7 +125,7 @@
          * {
          *   username: 'Admin',
          *   password: 'hihihi',
-         *   isRememberPW: true
+         *   isRememberPassword: true
          * }
          * ```
          *
@@ -151,7 +151,7 @@
          *
          * @type Boolean
          */
-        isRememberPW: {
+        isRememberPassword: {
           type: Boolean,
           value: false
         },
@@ -162,38 +162,40 @@
        *
        */
       submit: function(){
-          // invalidated
-        if (!loginForm.validate()) {
+        // invalidated
+        if (!this.$.loginForm.validate()) {
           this._invalidatedSubmit();
+          return;
         }
+
         // validated
-        else {
-          var formData = loginForm.serialize();
-          this.lastSubmitData = {
-            username:     formData.username,
-            password:     formData.password,
-            isRememberPW: formData.rememberPW == 'on'? true : false
-          }
-          this._validatedSubmit(this.lastSubmitData);
+        var formData = loginForm.serialize();
+        this.lastSubmitData = {
+          username:     formData.username,
+          password:     formData.password,
+          isRememberPassword: formData.rememberPassword == 'on'? true : false
         }
+        this._validatedSubmit(this.lastSubmitData);
       },
 
       /**
        * 合法提交时触发，非冒泡。
        *
-       * @event validated-submit
+       * @event rc-login-form-validated-submit
        */
-       _validatedSubmit: function(submitData){
 
+       _validatedSubmit: function(submitData){
+         this.fire('rc-login-form-validated-submit', submitData, {bubbles: false});
        },
 
       /**
        * 非法提交时触发，非冒泡。
        *
-       * @event invalidated-submit
+       * @event rc-login-form-invalidated-submit
        */
-       _invalidatedSubmit: function(){
 
+       _invalidatedSubmit: function(){
+         this.fire('rc-login-form-invalidated-submit', null, {bubbles: false});
        },
 
       // 检查输入，触发登录
