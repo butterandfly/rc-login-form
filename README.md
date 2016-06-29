@@ -1,38 +1,17 @@
-# \<rc-login-form\>
+# \<rc-login-form\>[![Build Status](https://travis-ci.org/butterandfly/rc-login-form.svg?branch=master)](https://travis-ci.org/butterandfly/rc-login-form)
 
+一个通用的登录表单
 
+# 安装
 
-## Install the Polymer-CLI
-
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
-
-## Viewing Your Application
-
+确保你已经安装npm及bower，然后使用bower来安装：
 ```
-$ polymer serve
+bower install butterandfly/rc-login-form
 ```
 
-## Building Your Application
+# 使用
+`placeholder-data`属性用来设置表单的预设数据：
+```
+<rc-login-form placeholder-data='{"username": "Admin", "password": "hihihi", "isRememberPassword": true}'></rc-login-form>
 
 ```
-$ polymer build
-```
-
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
-
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled
-```
-
-## Running Tests
-
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
