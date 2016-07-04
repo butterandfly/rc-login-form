@@ -18,6 +18,11 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        /*--form-color: orange;
+        --login-button-color:{
+          background-color: orange;
+          color: #fff;
+        }*/
       }
 
       #rememberPW {
@@ -33,18 +38,17 @@
 
       paper-button#login {
         margin-top: 20px;
-        /*background-color: orange;*/
-        /*color: #fff;*/
+        @apply(--login-button-color);
       }
 
-      /*paper-input {
-        --paper-input-container-color: orange;
-        --paper-input-container-focus-color: orange;
-      }*/
+      paper-input {
+        --paper-input-container-color: var(--form-color);
+        --paper-input-container-focus-color: var(--form-color);
+      }
 
       paper-checkbox {
         margin-top: 15px;
-        /*--paper-checkbox-checked-color: orange;*/
+        --paper-checkbox-checked-color: var(--form-color);
       }
 
       paper-spinner {
