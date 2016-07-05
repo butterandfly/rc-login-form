@@ -34,7 +34,7 @@ $ bower install butterandfly/rc-login-form
 # 开发
 ### 安装Polymer-CLI
 
-确保你已经安装[polymer cli](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)，然后使用`polymer serve`来开启一个本地服务器：
+确保你已经安装[Polymer-CLI](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)，然后使用`polymer serve`来开启一个本地服务器：
 
 ### 查看你的应用
 
