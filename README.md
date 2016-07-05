@@ -27,19 +27,10 @@ $ bower install butterandfly/rc-login-form
 | --login-button-color  | 设置登录按钮的背景色和文字颜色 | {} |
 
 ### 事件
-点击登录表单输入合法会触发`_validatedSubmit`事件，并将表单数据`submitData`提交
-```javascript
-_validatedSubmit: function(submitData){
-  this.fire('rc-login-form-validated-submit', submitData, {bubbles: false});
-}
-```
-不合法则触发`_invalidatedSubmit`事件
+点击登录表单输入合法会触发`rc-login-form-validated-submit`事件，并将表单数据`submitData`提交
 
-```javascript
-_invalidatedSubmit: function(){
-  this.fire('rc-login-form-invalidated-submit', null, {bubbles: false});
-}
-```
+不合法则触发`rc-login-form-invalidated-submit`事件
+
 # 开发
 ### 安装Polymer-CLI
 
