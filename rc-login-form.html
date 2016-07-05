@@ -33,18 +33,21 @@
 
       paper-button#login {
         margin-top: 20px;
-        /*background-color: orange;*/
-        /*color: #fff;*/
+        @apply(--rc-login-form-button);
       }
 
-      /*paper-input {
-        --paper-input-container-color: orange;
-        --paper-input-container-focus-color: orange;
-      }*/
+      paper-input {
+        --paper-input-container-color: var(--rc-login-form-color);
+        --paper-input-container-focus-color: var(--rc-login-form-color);
+      }
 
       paper-checkbox {
         margin-top: 15px;
-        /*--paper-checkbox-checked-color: orange;*/
+        --paper-checkbox-checked-color: var(--rc-login-form-color);
+        --paper-checkbox-checked-ink-color: var(--rc-login-form-color);
+        --paper-checkbox-unchecked-color: var(--rc-login-form-color);
+        --paper-checkbox-unchecked-ink-color: var(--rc-login-form-color);
+        --paper-checkbox-label-color: var(--rc-login-form-color);
       }
 
       paper-spinner {
