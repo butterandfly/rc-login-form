@@ -23,8 +23,8 @@ $ bower install butterandfly/rc-login-form
 ### 样式
 | Custom property | Description | Default |
 |-----------------|-------------|---------|
-| --form-color    | 统一设置 输入框获得/失去焦点时标签和下划线、复选框被选择时的颜色 | --primary-color |
-| --login-button-color  | 设置登录按钮的背景色和文字颜色 | {} |
+| --rc-login-form-color    | 统一设置 输入框获得/失去焦点时标签和下划线、复选框被选择时的颜色 | --primary-color |
+| --rc-login-form-button  | 设置登录按钮的背景色和文字颜色 | {} |
 
 ### 事件
 点击登录表单输入合法会触发`rc-login-form-validated-submit`事件，并将表单数据`submitData`提交
