@@ -3,6 +3,7 @@
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
 
 <!--
 `rc-login-form`是一个通用的用户登录表单。
@@ -84,6 +85,7 @@
 
       <paper-checkbox
         name="rememberPassword"
+        hidden$="[[disableRememberPassword]]"
         checked="[[placeholderData.isRememberPassword]]">
         记住密码
       </paper-checkbox>
@@ -103,6 +105,14 @@
       is: 'rc-login-form',
 
       properties: {
+        /**
+         * 是否禁用记住密码
+         */
+        disableRememberPassword: {
+          type: Boolean,
+          notify: true,
+          value: false
+        },
 
         /**
          * 占位数据，结构：

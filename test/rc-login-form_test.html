@@ -27,6 +27,14 @@
           loginForm = fixture('basic');
         });
 
+        test('启用disableRememberPassword后勾选框应隐藏', () => {
+          let checkbox = loginForm.$$('paper-checkbox')
+          assert.equal(checkbox.hasAttribute('hidden'), false);
+
+          loginForm.disableRememberPassword = true;
+          assert.equal(checkbox.hasAttribute('hidden'), true);
+        });
+
         test('执行submit方法得到lastSubmitData', () => {
           loginForm.querySelector('paper-input[name=username]').value = 'testUser';
           loginForm.querySelector('paper-input[name=password]').value = 'testPassword';
